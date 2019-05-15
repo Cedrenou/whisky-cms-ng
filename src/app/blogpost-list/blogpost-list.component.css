@@ -1,0 +1,13 @@
+.example-card {
+  padding-top: 100px;
+  border-radius: 0px;
+}
+
+mat-card img {
+  width: 50%;
+  padding-left: 15px;
+}
+
+.no-margin {
+  margin-left: -20px;
+}

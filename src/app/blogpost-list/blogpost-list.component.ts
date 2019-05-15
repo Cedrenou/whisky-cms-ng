@@ -1,4 +1,7 @@
+import { BlogpostService } from '../blogpost.service';
+import { Blogpost } from '../models/blogpost';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-blogpost-list',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogpostListComponent implements OnInit {
 
-  constructor() { }
+  blogPostList$: Observable<Blogpost[]>;
+
+  constructor(private blogPostService: BlogpostService) { }
 
   ngOnInit() {
+    this.blogPostList$ = this.blogPostService.getBlogposts()
   }
 
 }

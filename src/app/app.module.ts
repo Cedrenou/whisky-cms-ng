@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
+import {HttpClientModule} from '@angular/common/http';
+import {MaterialModule} from './material.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    MaterialModule,
     BrowserAnimationsModule
   ],
   providers: [],
