@@ -21,6 +21,10 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     // this.blogPosts$ = this.blogPostService.getBlogposts();
     this.blogPostService.getBlogposts().subscribe((data) => this.refresh(data))
+    this.blogPostService.handleBlogpostCreated().subscribe(data => {
+      console.log('AdminComponent received : ', data);
+      this.refresh(data);
+    })
   }
 
   deleteBlogPosts(selectedOptions) {
@@ -35,8 +39,8 @@ export class AdminComponent implements OnInit {
   refresh(data) {
     console.log('data', data);
     this.blogPostService.getBlogposts().subscribe(data => {
-        this.allBlogPosts = data
-      })
+      this.allBlogPosts = data
+    })
   }
 
   handleError(error) {

@@ -1,35 +1,55 @@
 import {Blogpost} from './models/blogpost';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogpostService {
 
-  baseUrl = 'http://localhost:3000/api/v1/';
+  baseUrl = 'http://localhost:3000/api/v1/blog-posts';
+  private blogpostCreated = new Subject<string>()
 
   constructor(
     private http: HttpClient
   ) {
   }
 
+  // CREATE
+  createBlogpost(blogpost: Blogpost) {
+    return this.http.post<Blogpost>(this.baseUrl, blogpost)
+  }
+
+  dispatchBlogpostCreated (id: string) {
+    this.blogpostCreated.next(id)
+  }
+
+  handleBlogpostCreated () {
+    return this.blogpostCreated.asObservable()
+  }
+
+  // READ
   getBlogposts(): Observable<Blogpost[]> {
-    return this.http.get<Blogpost[]>(`${this.baseUrl}/blog-posts`)
+    return this.http.get<Blogpost[]>(`${this.baseUrl}/`)
   }
 
   getBlogPostsById(id): Observable<Blogpost> {
-    return this.http.get<Blogpost>(`${this.baseUrl}/blog-posts/${id}`)
+    return this.http.get<Blogpost>(`${this.baseUrl}/${id}`)
   }
 
+  // UPDATE
+
+  // DELETE
   deleteBlogPostsById(id: string) {
-    return this.http.delete<Blogpost>(`${this.baseUrl}/blog-posts/${id}`)
+    return this.http.delete<Blogpost>(`${this.baseUrl}/${id}`)
   }
 
   deleteBlogPosts(ids: string[]) {
     const allIds = ids.join(','); // id1,id2,id3...
 
-    return this.http.delete(`${this.baseUrl}/blog-posts/?ids=${allIds}`)
+    return this.http.delete(`${this.baseUrl}/?ids=${allIds}`)
   }
+
+
 }
