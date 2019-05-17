@@ -9,7 +9,7 @@ import {Observable, Subject} from 'rxjs';
 export class BlogpostService {
 
   baseUrl = 'http://localhost:3000/api/v1/blog-posts';
-  private blogpostCreated = new Subject<string>()
+  private blogpostCreated = new Subject<string>();
 
   constructor(
     private http: HttpClient
@@ -19,6 +19,10 @@ export class BlogpostService {
   // CREATE
   createBlogpost(blogpost: Blogpost) {
     return this.http.post<Blogpost>(this.baseUrl, blogpost)
+  }
+
+  uploadImage(formData: FormData) {
+    return this.http.post<any>(`${this.baseUrl}/images`, formData)
   }
 
   dispatchBlogpostCreated (id: string) {

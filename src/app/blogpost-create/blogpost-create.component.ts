@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective} from '@angular/forms';
 import {BlogpostService} from '../blogpost.service';
 
@@ -13,7 +13,8 @@ export class BlogpostCreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private blogpostService: BlogpostService
+    private blogpostService: BlogpostService,
+    private el: ElementRef
   ) {
   }
 
@@ -25,8 +26,22 @@ export class BlogpostCreateComponent implements OnInit {
     this.creationForm = this.fb.group({
       title: '',
       subtitle: '',
-      content: ''
+      content: '',
+      image: ''
     })
+  }
+
+  upload() {
+    // retrieve file upload HTML tag
+    const inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#image');
+    const fileCount: number = inputEl.files.length;
+
+    if (fileCount > 0) {
+      const formData = new FormData();
+      formData.append('image', inputEl.files.item(0));
+      this.blogpostService.uploadImage(formData).subscribe(data => console.log(data), error => console.error(error))
+    }
+    console.log(fileCount)
   }
 
   onCreateBlogpost(formDirective: FormGroupDirective) {
