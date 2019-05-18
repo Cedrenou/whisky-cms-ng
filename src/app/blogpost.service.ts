@@ -25,11 +25,11 @@ export class BlogpostService {
     return this.http.post<any>(`${this.baseUrl}/images`, formData)
   }
 
-  dispatchBlogpostCreated (id: string) {
+  dispatchBlogpostCreated(id: string) {
     this.blogpostCreated.next(id)
   }
 
-  handleBlogpostCreated () {
+  handleBlogpostCreated() {
     return this.blogpostCreated.asObservable()
   }
 
@@ -43,6 +43,10 @@ export class BlogpostService {
   }
 
   // UPDATE
+
+  updateBlogpost(id: string, blogPost: Blogpost) {
+    return this.http.put(`${this.baseUrl}/${id}`, blogPost)
+  }
 
   // DELETE
   deleteBlogPostsById(id: string) {

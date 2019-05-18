@@ -16,6 +16,7 @@ import {AdminComponent} from './admin/admin.component';
 // Module
 import {AppRoutingModule} from './app-routing.module';
 import {MaterialModule} from './material.module';
+import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MaterialModule} from './material.module';
     BlogpostListComponent,
     ErrorpageComponent,
     AdminComponent,
-    BlogpostCreateComponent
+    BlogpostCreateComponent,
+    BlogpostEditComponent
   ],
   imports: [
     BrowserModule,
